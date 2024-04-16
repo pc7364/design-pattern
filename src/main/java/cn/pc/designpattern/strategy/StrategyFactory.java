@@ -4,6 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,17 +14,18 @@ import java.util.Map;
  * @Author pc
  * @Date 2024/4/9 18:10
  */
+@Component
 public class StrategyFactory implements ApplicationContextAware , InitializingBean {
 
     private ApplicationContext applicationContext;
 
-    Map<Integer , DemoStrategy> map = new HashMap<>();
+    Map<Integer , PayStrategy> map = new HashMap<>();
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Map<String, DemoStrategy> beansOfType = applicationContext.getBeansOfType(DemoStrategy.class);
-        for (DemoStrategy value : beansOfType.values()) {
-            map.put(value.getType() , value);
+        Map<String, PayStrategy> beansOfType = applicationContext.getBeansOfType(PayStrategy.class);
+        for (PayStrategy value : beansOfType.values()) {
+            map.put(value.getPayType() , value);
         }
     }
 
@@ -31,4 +33,11 @@ public class StrategyFactory implements ApplicationContextAware , InitializingBe
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+
+    public PayStrategy getStrategy(Integer payType) {
+
+        return map.get(payType);
+
+    }
+
 }
