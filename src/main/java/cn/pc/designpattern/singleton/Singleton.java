@@ -1,5 +1,7 @@
 package cn.pc.designpattern.singleton;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -60,8 +62,15 @@ public class Singleton {
         }
     }
 
-    public static void main(String[] args) {
-        Singleton.getSingleton();
+    public static void main(String[] args) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        Singleton singleton = Singleton.getSingleton();
+
+        // 通过反射获取构造函数来破坏单例模式
+        Constructor<Singleton> declaredConstructor = Singleton.class.getDeclaredConstructor();
+        declaredConstructor.setAccessible(true);
+        Singleton singleton3 = declaredConstructor.newInstance();
+
+
     }
 
 
