@@ -1,5 +1,7 @@
 package cn.pc.designpattern;
 
+import cn.pc.designpattern.strategy.AbstractPayService;
+import cn.pc.designpattern.strategy.AliPayStrategy;
 import cn.pc.designpattern.strategy.PayStrategy;
 import cn.pc.designpattern.strategy.StrategyFactory;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,11 @@ class DesignPatternApplicationTests {
         PayStrategy strategy = strategyFactory.getStrategy(1);
         strategy.pay(1,1);
 
+        // 策略 + 模版模式
+        AbstractPayService payService = new AliPayStrategy();
+        payService.pay(1,1);
+
     }
+
 
 }
