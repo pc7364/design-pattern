@@ -15,7 +15,11 @@ public class Singleton {
 
 
 
-    private Singleton(){};
+    private Singleton(){
+        if (singleton!=null){
+            throw new RuntimeException("单例模式只能创建一次");
+        }
+    };
 
     //懒汉式
     public static synchronized Singleton getSingleton(){
